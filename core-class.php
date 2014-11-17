@@ -51,6 +51,43 @@ class Metaplate {
 	}
 
 	/**
+	 * get the metaplates for the post
+	 *
+	 *
+	 * @return    array    active metaplates for this post type
+	 */
+	private static function get_active_metaplates( ) {
+		
+		global $post;
+
+		// GET METAPLATEs
+		$metaplates = get_option( '_metaplates_registry' );
+		$meta_stack = array();
+		foreach( $metaplates as $metaplate_try ){
+			$is_plate = get_option( $metaplate_try['id'] );
+			if( !empty( $is_plate['post_type'][$post->post_type] ) ){
+				switch ($is_plate['page_type']) {
+					case 'single':
+						if( is_single() ){
+							$meta_stack[] = $is_plate;
+						}
+						break;
+					case 'archive':
+						if( !is_single() ){
+							$meta_stack[] = $is_plate;
+						}
+						break;
+					default:
+						$meta_stack[] = $is_plate;
+						break;
+				}					
+			}
+		}
+
+		return $meta_stack;
+
+	}
+	/**
 	 * Return the content with metaplate applied.
 	 *
 	 *
@@ -59,30 +96,8 @@ class Metaplate {
 	public static function render_metaplate( $content ) {
 
 			global $post;
-			
-			// GET METAPLATEs
-			$metaplates = get_option( '_metaplates_registry' );
-			foreach( $metaplates as $metaplate_try ){
-				$is_plate = get_option( $metaplate_try['id'] );
-				if( !empty( $is_plate['post_type'][$post->post_type] ) ){
-					switch ($is_plate['page_type']) {
-						case 'single':
-							if( is_single() ){
-								$meta_stack[] = $is_plate;
-							}
-							break;
-						case 'archive':
-							if( !is_single() ){
-								$meta_stack[] = $is_plate;
-							}
-							break;
-						default:
-							$meta_stack[] = $is_plate;
-							break;
-					}					
-				}
-			}
-
+				
+			$meta_stack = $this->get_active_metaplates();
 			if( empty( $meta_stack ) ){
 				return $content;
 			}
@@ -116,20 +131,14 @@ class Metaplate {
 			foreach( $post as $post_key=>$post_value ){
 				$template_data[$post_key] = $post_value;
 			}
-			var_dump( $template_data );
 
 			$engine = new Handlebars;
 
 			foreach( $meta_stack as $metaplate ){
 				// check CSS
-				if( !empty( trim( $metaplate['css']['code'] ) ) ){
-					$style_data .= $engine->render( $metaplate['css']['code'], $template_data );
-				}
-
+				$style_data .= $engine->render( $metaplate['css']['code'], $template_data );
 				// check JS
-				if( !empty( trim( $metaplate['js']['code'] ) ) ){
-					$script_data .= $engine->render( $metaplate['js']['code'], $template_data );
-				}
+				$script_data .= $engine->render( $metaplate['js']['code'], $template_data );
 
 				switch ( $metaplate['placement'] ){
 					case 'prepend':
