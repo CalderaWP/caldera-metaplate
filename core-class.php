@@ -87,6 +87,43 @@ class Metaplate {
 		return $meta_stack;
 
 	}
+
+	/**
+	 * merge in ACF, CFS fields, meta and post data
+	 *
+	 *
+	 * @return    array    array with merged data
+	 */
+	private static function get_custom_field_data( $raw_data ) {
+
+		// break to standard arrays
+		$template_data = array();
+		foreach( $raw_data as $meta_key=>$meta_data ){
+			if( count( $meta_data ) === 1 ){
+				if( strlen( trim( $meta_data[0] ) ) > 0 ){ // check value is something else leave it out.
+					$template_data[$meta_key] = trim( $meta_data[0] );
+				}
+			}else{
+				$template_data[$meta_key] = $meta_data;
+			}
+		}
+		// ACF support
+		if( class_exists( 'acf' ) ){
+			$template_data = array_merge( $template_data, get_fields( $post->ID ) );
+		}
+		// CFS support
+		if( class_exists( 'Custom_Field_Suite' ) ){
+			$template_data = array_merge( $template_data, CFS()->get() );
+		}
+
+		// include post values
+		foreach( $post as $post_key=>$post_value ){
+			$template_data[$post_key] = $post_value;
+		}	
+
+		return $template_data;
+	}
+
 	/**
 	 * Return the content with metaplate applied.
 	 *
@@ -106,31 +143,8 @@ class Metaplate {
 			$script_data = null;
 			
 			$raw_template_data = get_post_meta( $post->ID  );
-
-			// break to standard arrays
-			$template_data = array();
-			foreach( $raw_template_data as $meta_key=>$meta_data ){
-				if( count( $meta_data ) === 1 ){
-					if( strlen( trim( $meta_data[0] ) ) > 0 ){ // check value is something else leave it out.
-						$template_data[$meta_key] = trim( $meta_data[0] );
-					}
-				}else{
-					$template_data[$meta_key] = $meta_data;
-				}
-			}
-			// ACF support
-			if( class_exists( 'acf' ) ){
-				$template_data = array_merge( $template_data, get_fields( $post->ID ) );
-			}
-			// CFS support
-			if( class_exists( 'Custom_Field_Suite' ) ){
-				$template_data = array_merge( $template_data, CFS()->get() );
-			}
-
-			// include post values
-			foreach( $post as $post_key=>$post_value ){
-				$template_data[$post_key] = $post_value;
-			}
+			$template_data = self::get_custom_field_data( $raw_template_data );
+			
 
 			$engine = new Handlebars;
 
