@@ -1,0 +1,240 @@
+.metaplate-input-error,
+input.metaplate-input-error,
+select.metaplate-input-error,
+textarea.metaplate-input-error {
+  border: 1px solid #df8080 !important;
+  box-shadow: 0 0 2px #ff6060 !important;
+}
+h4 > small.description {
+  color: #7f7f7f;
+  font-style: italic;
+  font-weight: normal;
+}
+.metaplate-main-header {
+	background: none repeat scroll 0 0 #fff;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 8px 0 0 #ff6b00 inset;
+	margin: -10px -20px 10px -22px;
+	padding: 0 0 8px 22px;
+	overflow: hidden;
+}
+.metaplate-sub-header {
+  background: none repeat scroll 0 0 #f8f8f8;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 8px 0 0 #ff6b00 inset;
+  margin: -10px -20px 10px -22px;
+  padding: 0 0 0 8px;
+  overflow: hidden;
+}
+.metaplate-subline,
+.metaplate-version {
+  color: #9f9f9f;
+  font-size: 0.55em;
+  line-height: 0;
+}
+
+.metaplate-main-header h2 {
+	color: #4f4f4f;
+	font-size: 20px;
+	font-weight: 300;
+  float: left;
+}
+.metaplate-main-header .logo-icon{
+	color: #ff6b00;
+  font-size: 72px;
+  margin: -18px 20px 0 -60px;
+  opacity: 0.2;
+  padding: 0 15px 0 0;
+}
+
+.wrap .metaplate-main-header .add-new-h2{
+	font-size: 12px;
+	margin: 13px;
+	cursor: pointer;
+}
+.metaplate-main-header .add-new-h2:hover {
+	background: none repeat scroll 0 0 #ff6b00;
+}
+
+.metaplate-main-header .metaplate-header-tabs {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.metaplate-sub-header .metaplate-sub-tabs {
+  margin: 0;
+  padding: 0;
+}
+
+.metaplate-main-header .metaplate-header-tabs > li{
+  float: left;
+}
+.metaplate-main-header .metaplate-header-tabs > li > a{
+  display: inline-block;
+  margin: 0 0 -15px;
+  padding: 16px 20px 20px;
+  text-decoration: none;
+  color:#ff6b00;
+}
+.metaplate-main-header .metaplate-header-tabs > li > a:hover{
+  background-color: #efefef;
+}
+.metaplate-main-header .metaplate-header-tabs > li.active > a{
+  background-color: #ff6b00;
+  color: #fff;
+}
+.metaplate-sub-header .metaplate-sub-tabs > li {
+  float: left;
+  margin: 0;
+}
+.metaplate-sub-header .metaplate-sub-tabs > li > a{
+  display: inline-block;
+  margin: 0;
+  padding: 6px 14px 8px;
+  text-decoration: none;
+  color:#ff6b00;
+}
+
+.metaplate-sub-header .metaplate-sub-tabs > li > a:hover{
+  background-color: #efefef;
+}
+.metaplate-sub-header .metaplate-sub-tabs > li.active > a{
+  background-color: #ff6b00;
+  color: #fff;
+}
+.metaplate-split-panel {
+  margin-left: 300px;
+}
+.metaplate-side-list {
+  float: left;
+  margin-left: -300px;
+  width: 280px;
+}
+.metaplate-side-list > label{
+	display: block;
+}
+.metaplate-side-list > select {
+	width: 100%;
+	margin-bottom: 2px;
+}
+
+.metaplate-footer-bar {
+  border-top: 1px solid #e6e6e6;
+  margin: 30px -20px 0 -22px;
+  padding: 20px;
+}
+
+.metaplate-main-list {
+  float: left;
+  min-height: 100px;
+  width: 550px;
+  position: relative;
+}
+
+.metaplate-config-group {
+  margin-bottom: 6px;
+}
+.metaplate-config-group > label {
+  display: inline-block;
+  margin: 6px 0 0;
+  vertical-align: top;
+  width: 180px;
+}
+
+.baldrick-modal-title .modal-label,
+.baldrick-modal-title .baldrick-modal-closer{
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.baldrick-modal-title .baldrick-modal-closer:hover {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.2);
+}
+.baldrick-modal-title .modal-label{
+  background-color: #ff6b00;
+}
+
+/* Tags */
+.magic-tag-init {
+  margin: 4px 2px;
+  padding: 3px;
+  position: absolute;
+  right: 0;
+}
+.ui-autocomplete-category {
+  background: none repeat scroll 0 0 #cecece;
+  font-weight: bold;
+  padding: 3px 10px;
+}
+.ui-autocomplete {
+  border: 1px solid #cbcbcb;
+  max-height: 380px;
+  overflow: auto;
+}
+.metaplate-card-item {
+  background: none repeat scroll 0 0 #fff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 50px 0 0 #f8f8f8 inset;
+  box-sizing: border-box;
+  color: #555;
+  display: inline-block;
+  font-size: 13px;
+  min-height: 90px;
+  margin: 6px 6px 0 0;
+  overflow: hidden;
+  padding: 0 0 0 50px;
+  position: relative;
+  width: 305px;
+}
+.metaplate-card-sub-item {
+  background: none repeat scroll 0 0 #fcfcfc;
+  border: 1px solid #e5e5e5;
+  box-shadow: -39px 0 0 #f8f8f8 inset,-40px 0 0 #dfdfdf inset;
+  box-sizing: border-box;
+  color: #555;
+  font-size: 13px;
+  margin: 0 0 6px;
+  padding: 6px;
+  position: relative;
+}
+.metaplate-card-item .metaplate-card-icon {
+  float: left;
+  font-size: 95px;
+  height: 100%;
+  line-height: 90px;
+  margin-left: -51px;
+  overflow: hidden;
+  padding: 0 1px;
+  text-indent: -33px;
+  width: 50px;
+}
+.metaplate-card-item .metaplate-card-icon:before {
+  opacity: 0.2;
+}
+.metaplate-card-content {
+  box-sizing: padding-box;
+  border-left: 1px solid #dfdfdf;
+  padding: 6px 12px;
+  width: 100%;
+  min-height: 90px;
+}
+.metaplate-card-item .metaplate-card-content > h4{
+	margin: 0;
+}
+
+.metaplate-card-content input[type="text"] {
+  width: 100%;
+}
+.metaplate-card-content .description {
+  color: #8f8f8f;
+  font-size: 11px;
+}
+.metaplate-card-content .metaplate-card-actions {
+  padding: 0;
+}
+.metaplate-card-content .metaplate-card-actions .row-actions{
+	visibility: visible;
+}
+.metaplate-card-content .metaplate-card-actions .row-actions a{
+	text-decoration: none;
+}
+#metaplate-save-indicator.loading .spinner{
+  display: block;
+}

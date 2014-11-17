@@ -1,0 +1,21 @@
+{
+    "name": "metaplate/metaplate",
+    "description": "Create Meta Templates to display Custom Fields and Post Meta",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "wordpress"
+    ],
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "David",
+            "homepage": "http://cramer.co.za",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0.0",
+        "php": ">=5.3.0",
+        "xamin/handlebars.php": "dev-master"
+    }
+}
