@@ -97,7 +97,7 @@ class Metaplate {
 
 			global $post;
 				
-			$meta_stack = $this->get_active_metaplates();
+			$meta_stack = self::get_active_metaplates();
 			if( empty( $meta_stack ) ){
 				return $content;
 			}
