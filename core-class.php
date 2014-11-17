@@ -40,9 +40,6 @@ class Metaplate {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-		// Activate plugin when new blog is added
-		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
-
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_stylescripts' ) );
 
@@ -97,7 +94,7 @@ class Metaplate {
 	private static function get_custom_field_data( $raw_data ) {
 
 		global $post;
-		
+
 		// break to standard arrays
 		$template_data = array();
 		foreach( $raw_data as $meta_key=>$meta_data ){
@@ -195,106 +192,6 @@ class Metaplate {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Fired when the plugin is activated.
-	 *
-	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
-	 */
-	public static function activate( $network_wide ) {
-		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-			if ( $network_wide  ) {
-				// Get all blog ids
-				$blog_ids = self::get_blog_ids();
-
-				foreach ( $blog_ids as $blog_id ) {
-					switch_to_blog( $blog_id );
-					self::single_activate();
-				}
-				restore_current_blog();
-			} else {
-				self::single_activate();
-			}
-		} else {
-			self::single_activate();
-		}
-	}
-
-	/**
-	 * Fired when the plugin is deactivated.
-	 *
-	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
-	 */
-	public static function deactivate( $network_wide ) {
-		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-			if ( $network_wide ) {
-				// Get all blog ids
-				$blog_ids = self::get_blog_ids();
-
-				foreach ( $blog_ids as $blog_id ) {
-					switch_to_blog( $blog_id );
-					self::single_deactivate();
-				}
-				restore_current_blog();
-			} else {
-				self::single_deactivate();
-			}
-		} else {
-			self::single_deactivate();
-		}
-	}
-
-	/**
-	 * Fired when a new site is activated with a WPMU environment.
-	 *
-	 *
-	 * @param	int	$blog_id ID of the new blog.
-	 */
-	public function activate_new_site( $blog_id ) {
-		if ( 1 !== did_action( 'wpmu_new_blog' ) )
-			return;
-
-		switch_to_blog( $blog_id );
-		self::single_activate();
-		restore_current_blog();
-	}
-
-	/**
-	 * Get all blog ids of blogs in the current network that are:
-	 * - not archived
-	 * - not spam
-	 * - not deleted
-	 *
-	 *
-	 * @return	array|false	The blog ids, false if no matches.
-	 */
-	private static function get_blog_ids() {
-		global $wpdb;
-
-		// get an array of blog ids
-		$sql = "SELECT blog_id FROM $wpdb->blogs
-			WHERE archived = '0' AND spam = '0'
-			AND deleted = '0'";
-		return $wpdb->get_col( $sql );
-	}
-
-	/**
-	 * Fired for each blog when the plugin is activated.
-	 *
-	 */
-	private static function single_activate() {
-		// TODO: Define activation functionality here if needed
-	}
-
-	/**
-	 * Fired for each blog when the plugin is deactivated.
-	 *
-	 */
-	private static function single_deactivate() {
-		// TODO: Define deactivation functionality here needed
 	}
 
 	/**

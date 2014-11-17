@@ -35,12 +35,6 @@ require_once( MTPT_PATH . 'vendor/autoload.php' );
 require_once( MTPT_PATH . 'core-class.php' );
 require_once( MTPT_PATH . 'includes/settings.php' );
 
-
-// Register hooks that are fired when the plugin is activated or deactivated.
-// When the plugin is deleted, the uninstall.php file is loaded.
-register_activation_hook( __FILE__, array( 'Metaplate', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Metaplate', 'deactivate' ) );
-
 // Load instance
 add_action( 'plugins_loaded', array( 'Metaplate', 'get_instance' ) );
 //Metaplate::get_instance();
