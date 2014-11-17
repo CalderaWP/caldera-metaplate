@@ -28,9 +28,9 @@ class Metaplate {
 	 */
 	protected static $instance = null;
 	/**
-	 * @var      string
+	 * @var      array
 	 */
-	protected $plugin_screen_hook_suffix = null;
+	protected $plugin_screen_hook_suffix = array();
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *

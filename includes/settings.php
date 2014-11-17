@@ -20,6 +20,31 @@ class Settings_Metaplate extends Metaplate{
 
 	}
 
+
+	/**
+	 * saves a config
+	 */
+	private function update_settings($config){
+
+		$metaplates = get_option( '_metaplates_registry' );
+		if( isset( $config['id'] ) && !empty( $metaplates[ $config['id'] ] ) ){
+			$updated_registery = array(
+				'id'	=>	$config['id'],
+				'name'	=>	$config['name'],
+				'slug'	=>	$config['slug']
+			);
+			// add search form to registery
+			if( !empty( $config['search_form'] ) ){
+				$updated_registery['search_form'] = $config['search_form'];
+			}
+			
+			$metaplates[$config['id']] = $updated_registery;
+			update_option( '_metaplates_registry', $metaplates );
+		}
+		update_option( $config['id'], $config );
+
+	}
+
 	/**
 	 * saves a config
 	 */
@@ -30,26 +55,12 @@ class Settings_Metaplate extends Metaplate{
 				return;
 			}
 		}
-
+		// define default
+		$config = array();
 		if( !empty( $_POST['metaplate-setup'] ) && empty( $_POST['config'] ) ){
 			$config = stripslashes_deep( $_POST );
-			$metaplates = get_option( '_metaplates_registry' );
-
-			if( isset( $config['id'] ) && !empty( $metaplates[ $config['id'] ] ) ){
-				$updated_registery = array(
-					'id'	=>	$config['id'],
-					'name'	=>	$config['name'],
-					'slug'	=>	$config['slug']
-				);
-				// add search form to registery
-				if( !empty( $config['search_form'] ) ){
-					$updated_registery['search_form'] = $config['search_form'];
-				}
-				
-				$metaplates[$config['id']] = $updated_registery;
-				update_option( '_metaplates_registry', $metaplates );
-			}
-			update_option( $config['id'], $config );
+			
+			self::update_settings( $config );
 
 			wp_redirect( '?page=metaplate&updated=true' );
 			exit;
@@ -58,23 +69,8 @@ class Settings_Metaplate extends Metaplate{
 		if( !empty( $_POST['config'] ) ){
 			$config = json_decode( stripslashes_deep( $_POST['config'] ), true );
 			if(	wp_verify_nonce( $config['metaplate-setup'], 'metaplate' ) ){
-				$metaplates = get_option( '_metaplates_registry' );
 
-			if( isset( $config['id'] ) && !empty( $metaplates[ $config['id'] ] ) ){
-				$updated_registery = array(
-					'id'	=>	$config['id'],
-					'name'	=>	$config['name'],
-					'slug'	=>	$config['slug']
-				);
-				// add search form to registery
-				if( !empty( $config['search_form'] ) ){
-					$updated_registery['search_form'] = $config['search_form'];
-				}
-				
-				$metaplates[$config['id']] = $updated_registery;
-				update_option( '_metaplates_registry', $metaplates );
-			}
-			update_option( $config['id'], $config );
+				self::update_settings( $config );
 
 				wp_send_json_success( $config );
 			}else{
@@ -126,12 +122,11 @@ class Settings_Metaplate extends Metaplate{
 			);
 			update_option( $metaplate_id, $new_metaplate );
 			$metaplates[ $metaplate_id ] = $new_metaplate;
+			update_option( '_metaplates_registry', $metaplates );
+
+			// end
+			wp_send_json_success( $new_metaplate );			
 		}
-
-		update_option( '_metaplates_registry', $metaplates );
-
-		// end
-		wp_send_json_success( $new_metaplate );
 	}
 
 	/**
