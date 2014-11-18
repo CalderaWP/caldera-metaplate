@@ -26,6 +26,10 @@ class Settings_Metaplate extends Metaplate{
 	 */
 	private function update_settings($config){
 
+		if( isset( $config['metaplate-setup'] ) && !wp_verify_nonce( $config['metaplate-setup'], 'metaplate' ) ){
+			wp_send_json_error( $config );
+		}
+
 		$metaplates = get_option( '_metaplates_registry' );
 		if( isset( $config['id'] ) && !empty( $metaplates[ $config['id'] ] ) ){
 			$updated_registery = array(
@@ -68,14 +72,8 @@ class Settings_Metaplate extends Metaplate{
 
 		if( !empty( $_POST['config'] ) ){
 			$config = json_decode( stripslashes_deep( $_POST['config'] ), true );
-			if(	wp_verify_nonce( $config['metaplate-setup'], 'metaplate' ) ){
-
-				self::update_settings( $config );
-
-				wp_send_json_success( $config );
-			}else{
-				wp_send_json_error( $config );
-			}
+			self::update_settings( $config );
+			wp_send_json_success( $config );
 
 		}
 
