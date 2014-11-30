@@ -44,7 +44,7 @@ class Metaplate {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_stylescripts' ) );
 
 		// add filter.
-		add_filter( 'the_content', array( $this, 'render_metaplate' ), 11 );
+		add_filter( 'the_content', array( $this, 'render_metaplate' ), 9 );
 	}
 
 	/**
@@ -217,7 +217,7 @@ class Metaplate {
 				$content .= '<script type="text/javascript">' . $script_data . '</script>';
 			}
 
-			return do_shortcode( $content );
+			return $content;
 		}
 
 	/**
