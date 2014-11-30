@@ -183,13 +183,14 @@ class Metaplate {
 			
 			$raw_template_data = get_post_meta( $post->ID  );
 			$template_data = self::get_custom_field_data( $raw_template_data );
-			
 
 			$engine = new Handlebars;
 			
 			$engine->addHelper( 'is', array( $this, 'is_helper' ) );
 
 			foreach( $meta_stack as $metaplate ){
+				// apply filter to data for this metaplate
+				$template_data = apply_filters( 'metaplate_data', $template_data, $metaplate );
 				// check CSS
 				$style_data .= $engine->render( $metaplate['css']['code'], $template_data );
 				// check JS
@@ -261,7 +262,7 @@ class Metaplate {
 
 			wp_enqueue_style( 'metaplate-core-style', MTPT_URL . '/assets/css/styles.css' );
 			wp_enqueue_style( 'metaplate-baldrick-modals', MTPT_URL . '/assets/css/modals.css' );
-			wp_enqueue_script( 'metaplate-wp-baldrick', MTPT_URL . '/assets/js/wp-baldrick-full.js', array( 'jquery' ) , false, true );
+			wp_enqueue_script( 'metaplate-wp-baldrick', MTPT_URL . '/assets/js/wp-baldrick-full.min.js', array( 'jquery' ) , false, true );
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
@@ -271,7 +272,7 @@ class Metaplate {
 				wp_enqueue_script( 'metaplate-codemirror-script', MTPT_URL . '/assets/js/codemirror.js', array( 'jquery' ) , false );
 			}
 
-			wp_enqueue_script( 'metaplate-core-script', MTPT_URL . '/assets/js/scripts.js', array( 'metaplate-wp-baldrick' ) , false );
+			wp_enqueue_script( 'metaplate-core-script', MTPT_URL . '/assets/js/scripts.min.js', array( 'metaplate-wp-baldrick' ) , false );
 
 		
 		}
