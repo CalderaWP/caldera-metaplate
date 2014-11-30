@@ -13,7 +13,6 @@
 				<option value="archive" {{#is page_type value="archive"}}selected="selected"{{/is}}><?php _e( 'Archive (list)', 'metaplate' ); ?></option>
 				<option value="both" {{#is page_type value="both"}}selected="selected"{{/is}}><?php _e( 'Both', 'metaplate' ); ?></option>
 			</select>
-			{{#is placement value="replace"}}<p class="description"><?php _e( 'Use \{{content}} in the template to indicate placement of original content.', 'metaplate' ); ?></p>{{/is}}
 		</div>
 		<div class="metaplate-config-group">
 			<label><?php _e( 'Placement', 'metaplate' ); ?></label>
