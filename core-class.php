@@ -65,12 +65,12 @@ class Metaplate {
 			if( !empty( $is_plate['post_type'][$post->post_type] ) ){
 				switch ($is_plate['page_type']) {
 					case 'single':
-						if( is_single() ){
+						if( is_single() || is_page() ){
 							$meta_stack[] = $is_plate;
 						}
 						break;
 					case 'archive':
-						if( !is_single() ){
+						if( ( is_archive() || is_front_page() ) && ( !is_page( ) || !is_single( ) ) ){
 							$meta_stack[] = $is_plate;
 						}
 						break;
@@ -86,14 +86,16 @@ class Metaplate {
 	}
 
 	/**
-	 * merge in ACF, CFS fields, meta and post data
+	 * merge in Custom field data, meta and post data
 	 *
 	 *
 	 * @return    array    array with merged data
 	 */
-	private static function get_custom_field_data( $raw_data ) {
+	public static function get_custom_field_data( $post_id ) {
 
 		global $post;
+
+		$raw_data = get_post_meta( $post_id  );
 
 		// break to standard arrays
 		$template_data = array();
@@ -115,10 +117,12 @@ class Metaplate {
 			$template_data = array_merge( $template_data, CFS()->get() );
 		}
 
-		// include post values
-		foreach( $post as $post_key=>$post_value ){
-			$template_data[$post_key] = $post_value;
-		}	
+		// include post values if in a post
+		if( !empty( $post ) ){
+			foreach( $post as $post_key=>$post_value ){
+				$template_data[$post_key] = $post_value;
+			}
+		}
 
 		return $template_data;
 	}
@@ -180,9 +184,8 @@ class Metaplate {
 
 			$style_data = null;
 			$script_data = null;
-			
-			$raw_template_data = get_post_meta( $post->ID  );
-			$template_data = self::get_custom_field_data( $raw_template_data );
+						
+			$template_data = self::get_custom_field_data( $post->ID );
 
 			$engine = new Handlebars;
 			
@@ -282,18 +285,3 @@ class Metaplate {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
