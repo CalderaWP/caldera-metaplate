@@ -117,6 +117,12 @@ class Metaplate {
 			$template_data = array_merge( $template_data, CFS()->get() );
 		}
 
+		//Pods support
+		if ( class_exists( 'Pods' ) && false != ( $pods = pods( $post->post_name, $post->ID, true ) ) ) {
+			$template_data = array_merge( $template_data, $pods->export() );
+		}
+
+
 		// include post values if in a post
 		if( !empty( $post ) ){
 			foreach( $post as $post_key=>$post_value ){
