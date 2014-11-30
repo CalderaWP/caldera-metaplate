@@ -100,6 +100,10 @@ class Metaplate {
 		// break to standard arrays
 		$template_data = array();
 		foreach( $raw_data as $meta_key=>$meta_data ){
+			if ( 0 === strpos( $meta_key, '_' ) ) {
+				continue;
+			}
+			
 			if( count( $meta_data ) === 1 ){
 				if( strlen( trim( $meta_data[0] ) ) > 0 ){ // check value is something else leave it out.
 					$template_data[$meta_key] = trim( $meta_data[0] );
