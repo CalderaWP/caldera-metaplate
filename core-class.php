@@ -114,16 +114,28 @@ class Metaplate {
 		}
 		// ACF support
 		if( class_exists( 'acf' ) ){
-			$template_data = array_merge( $template_data, get_fields( $post->ID ) );
+			$fields = get_fields( $post->ID );
+			if ( is_array( $fields ) && ! empty( $fields ) ) {
+				$template_data = array_merge( $template_data, $fields );
+			}
+
 		}
 		// CFS support
 		if( class_exists( 'Custom_Field_Suite' ) ){
-			$template_data = array_merge( $template_data, CFS()->get() );
+			$fields = CFS()->get();
+			if ( is_array( $fields ) && ! empty( $fields ) ) {
+				$template_data = array_merge( $template_data, $fields );
+			}
+
 		}
 
 		//Pods support
-		if ( class_exists( 'Pods' ) && false != ( $pods = pods( $post->post_name, $post->ID, true ) ) ) {
-			$template_data = array_merge( $template_data, $pods->export() );
+		if ( class_exists( 'Pods' ) && false != ( $pods = pods( $post->post_type, $post->ID, true ) ) ) {
+			$fields = $pods->export();
+			if ( is_array( $fields ) && ! empty( $fields ) ) {
+				$template_data = array_merge( $template_data, $fields );
+			}
+
 		}
 
 
@@ -135,6 +147,7 @@ class Metaplate {
 		}
 
 		return $template_data;
+
 	}
 
     /**
