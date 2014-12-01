@@ -33,6 +33,7 @@ require_once( MTPT_PATH . 'vendor/autoload.php' );
 
 // load internals
 require_once( MTPT_PATH . 'core-class.php' );
+require_once( MTPT_PATH . 'includes/helpers.php' );
 require_once( MTPT_PATH . 'includes/settings.php' );
 
 // Load instance
