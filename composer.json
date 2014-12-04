@@ -1,5 +1,5 @@
 {
-    "name": "metaplate/metaplate",
+    "name": "calderawp/metaplate",
     "description": "Create Meta Templates to display Custom Fields and Post Meta",
     "type": "wordpress-plugin",
     "keywords": [
@@ -8,13 +8,16 @@
     "license": "GPL-2.0+",
     "authors": [
         {
-            "name": "David",
+            "name": "David Cramer",
             "homepage": "http://cramer.co.za",
-            "role": "Developer"
+            "role": "Lead Developer"
         }
     ],
     "require": {
         "php": ">=5.3.0",
-        "xamin/handlebars.php": "dev-master"
+        "xamin/handlebars.php"      : "dev-master",
+        "cadlerawp/metaplate-core"  : "dev-master",
+        "calderawp/metaplate-admin" : "dev-master",
+        "calderawp/wp-handlebars-helpers"         :"dev-master"
     }
 }
