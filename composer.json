@@ -12,6 +12,12 @@
             "name": "David Cramer",
             "homepage": "http://cramer.co.za",
             "role": "Lead Developer"
+        },
+        {
+            "name": "Josh Pollock",
+            "homepage": "http://joshpress.net",
+            "email": "Josh@JoshPress.net",
+            "role" : "Developer"
         }
     ],
     "require": {
