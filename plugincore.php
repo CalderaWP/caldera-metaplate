@@ -41,15 +41,3 @@ add_action( 'plugins_loaded', function() {
 }, 13 );
 
 
-//Temporary psr-4 autoloader for now
-//@todo rm
-add_action( 'plugins_loaded', function(){
-	include_once( MTPT_PATH .'includes/classloader.php' );
-	$class_loader = new Caldera_MetaPlate_Autoloader();
-	$class_loader->addNamespace( 'caldera', MTPT_PATH . 'includes/caldera' );
-
-	$class_loader->register();
-	// load internals
-
-}, 11 );
-
