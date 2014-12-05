@@ -27,26 +27,26 @@ class Metaplate {
 
 		// Load plugin text domain
 		add_action( 'init', array(
-				caldera\metaplate\init::get_instance(),
+				calderawp\metaplate\core\init::get_instance(),
 				'load_plugin_textdomain'
 			)
 		);
 
 		//set MTPT_ADMIN_TEMPLATE_PATH if not already set
 		add_action( 'plugins_loaded', array(
-				caldera\metaplate\init::get_instance(),
+				calderawp\metaplate\core\init::get_instance(),
 				'define_admin_template_path'
 			),  1
 		);
 
 		//render output
-		$render = new caldera\metaplate\render();
+		$render = new calderawp\metaplate\core\render();
 		// add filter.
 		add_filter( 'the_content', array( $render, 'render_metaplate' ), 9 );
 
 		if ( is_admin() ) {
-			new caldera\metaplate\admin\settings();
-			new caldera\metaplate\admin\page();
+			new calderawp\metaplate\admin\settings();
+			new calderawp\metaplate\admin\page();
 		}
 
 
