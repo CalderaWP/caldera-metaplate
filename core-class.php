@@ -32,12 +32,6 @@ class Metaplate {
 			)
 		);
 
-		//set MTPT_ADMIN_TEMPLATE_PATH if not already set
-		add_action( 'plugins_loaded', array(
-				calderawp\metaplate\core\init::get_instance(),
-				'define_admin_template_path'
-			),  1
-		);
 
 		//render output
 		$render = new calderawp\metaplate\core\render();

@@ -23,12 +23,58 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-//set paths
-define('MTPT_PATH',  plugin_dir_path( __FILE__ ) );
-define('MTPT_URL',  plugin_dir_url( __FILE__ ) . '/vendor/calderawp/metaplate-admin-assets/src/assets/'   );
-define('MTPT_VER',  '1.0.0' );
 
-//autoload dependencies uncomment after running composer update
+/**
+ * Plugin Version
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_VER',  '1.0.0' );
+/**
+ * Set paths
+ *
+ * @since 1.0.0
+ * @param string
+ */
+
+/**
+ * Plugin URL
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_URL',  plugin_dir_url( __FILE__ ) );
+
+/**
+ * Root Plugin dir path
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_PATH',  plugin_dir_path( __FILE__ ) );
+
+/**
+ * Root path to vendor dir
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_VENDOR_PATH', MTPT_PATH .'vendor/' );
+
+/**
+ * Root path to calderawp packages in vendor dir
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_CALDERAWP_PATH', MTPT_VENDOR_PATH . 'calderawp/' );
+
+/**
+ * If autoloader exists, autoload dependencies uncomment after running composer update and run plugin.
+ *
+ * Else return WP_ERROR
+ */
 $vendor_dir = MTPT_PATH . 'vendor/autoload.php';
 if ( file_exists( $vendor_dir ) ) {
 	require_once( $vendor_dir );
@@ -45,6 +91,3 @@ if ( file_exists( $vendor_dir ) ) {
 else {
 	new WP_Error( __FILE__.'no-vendor-dir', __( 'No composer vendor directory found for Caldera Metaplate.', 'metaplate' ) );
 }
-
-
-
