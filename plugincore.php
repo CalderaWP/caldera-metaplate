@@ -29,9 +29,10 @@ define('MTPT_URL',  plugin_dir_url( __FILE__ ) .'includes/caldera/metaplate' );
 define('MTPT_VER',  '1.0.0' );
 
 //autoload dependencies uncomment after running composer update
-require_once( MTPT_PATH . 'vendor/autoload.php' );
-
-
+$vendor_dir = MTPT_PATH . 'vendor/autoload.php';
+if ( file_exists( $vendor_dir ) ) {
+	require_once( $vendor_dir );
+}
 
 // Load instance
 add_action( 'plugins_loaded', function() {
