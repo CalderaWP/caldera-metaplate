@@ -3,16 +3,16 @@
  * @package   Metaplate
  * @author    David <david@digilab.co.za>
  * @license   GPL-2.0+
- * @link      
+ * @link
  * @copyright 2014 David
  *
  * @wordpress-plugin
  * Plugin Name: Metaplate
- * Plugin URI:  
+ * Plugin URI:
  * Description: Create Meta Templates to display Custom Fields and Post Meta
  * Version:     1.0.0
  * Author:      David
- * Author URI:  
+ * Author URI:
  * Text Domain: metaplate
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -24,18 +24,70 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define('MTPT_PATH',  plugin_dir_path( __FILE__ ) );
-define('MTPT_URL',  plugin_dir_url( __FILE__ ) );
-define('MTPT_VER',  '1.0.0' );
+/**
+ * Plugin Version
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_VER',  '1.0.0' );
+/**
+ * Set paths
+ *
+ * @since 1.0.0
+ * @param string
+ */
 
-//autoload dependencies uncomment after running composer update
-require_once( MTPT_PATH . 'vendor/autoload.php' );
+/**
+ * Plugin URL
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_URL',  plugin_dir_url( __FILE__ ) );
 
-// load internals
-require_once( MTPT_PATH . 'core-class.php' );
-require_once( MTPT_PATH . 'includes/helpers.php' );
-require_once( MTPT_PATH . 'includes/settings.php' );
+/**
+ * Root Plugin dir path
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_PATH',  plugin_dir_path( __FILE__ ) );
 
-// Load instance
-add_action( 'plugins_loaded', array( 'Metaplate', 'get_instance' ) );
-//Metaplate::get_instance();
+/**
+ * Root path to vendor dir
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_VENDOR_PATH', MTPT_PATH .'vendor/' );
+
+/**
+ * Root path to calderawp packages in vendor dir
+ *
+ * @since 1.0.0
+ * @param string
+ */
+define( 'MTPT_CALDERAWP_PATH', MTPT_VENDOR_PATH . 'calderawp/' );
+
+/**
+ * If autoloader exists, autoload dependencies uncomment after running composer update and run plugin.
+ *
+ * Else return WP_ERROR
+ */
+$vendor_dir = MTPT_PATH . 'vendor/autoload.php';
+if ( file_exists( $vendor_dir ) ) {
+	require_once( $vendor_dir );
+
+
+
+	// Load instance
+	add_action( 'plugins_loaded', function() {
+		require_once( MTPT_PATH . 'core-class.php' );
+		new Metaplate();
+
+	}, 13 );
+}
+else {
+	new WP_Error( __FILE__.'no-vendor-dir', __( 'No composer vendor directory found for Caldera Metaplate.', 'metaplate' ) );
+}

@@ -6,7 +6,7 @@
  * @package   Metaplate
  * @author    David <david@digilab.co.za>
  * @license   GPL-2.0+
- * @link      
+ * @link
  * @copyright 2014 David
  */
 
@@ -20,253 +20,30 @@ use Handlebars\Handlebars;
 class Metaplate {
 
 	/**
-	 * @var      string
-	 */
-	protected $plugin_slug = 'metaplate';
-	/**
-	 * @var      object
-	 */
-	protected static $instance = null;
-	/**
-	 * @var      array
-	 */
-	protected $plugin_screen_hook_suffix = array();
-	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
 	 */
-	private function __construct() {
+	function __construct() {
 
 		// Load plugin text domain
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array(
+				calderawp\metaplate\core\init::get_instance(),
+				'load_plugin_textdomain'
+			)
+		);
 
-		// Load admin style sheet and JavaScript.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_stylescripts' ) );
 
+		//render output
+		$render = new calderawp\metaplate\core\render();
 		// add filter.
-		add_filter( 'the_content', array( $this, 'render_metaplate' ), 9 );
-	}
+		add_filter( 'the_content', array( $render, 'render_metaplate' ), 9 );
 
-	/**
-	 * get the metaplates for the post
-	 *
-	 *
-	 * @return    array    active metaplates for this post type
-	 */
-	private static function get_active_metaplates( ) {
-		
-		global $post;
-
-		// GET METAPLATEs
-		$metaplates = get_option( '_metaplates_registry' );
-		$meta_stack = array();
-		foreach( $metaplates as $metaplate_try ){
-			$is_plate = get_option( $metaplate_try['id'] );
-			if( !empty( $is_plate['post_type'][$post->post_type] ) ){
-				switch ($is_plate['page_type']) {
-					case 'single':
-						if( is_single() || is_page() ){
-							$meta_stack[] = $is_plate;
-						}
-						break;
-					case 'archive':
-						if( ( is_archive() || is_front_page() ) && ( !is_page( ) || !is_single( ) ) ){
-							$meta_stack[] = $is_plate;
-						}
-						break;
-					default:
-						$meta_stack[] = $is_plate;
-						break;
-				}					
-			}
-		}
-
-		return $meta_stack;
-
-	}
-
-	/**
-	 * merge in Custom field data, meta and post data
-	 *
-	 *
-	 * @return    array    array with merged data
-	 */
-	public static function get_custom_field_data( $post_id ) {
-
-		global $post;
-
-		$raw_data = get_post_meta( $post_id  );
-
-		// break to standard arrays
-		$template_data = array();
-		foreach( $raw_data as $meta_key=>$meta_data ){
-			if ( 0 === strpos( $meta_key, '_' ) ) {
-				continue;
-			}
-			
-			if( count( $meta_data ) === 1 ){
-				if( strlen( trim( $meta_data[0] ) ) > 0 ){ // check value is something else leave it out.
-					$template_data[$meta_key] = trim( $meta_data[0] );
-				}
-			}else{
-				$template_data[$meta_key] = $meta_data;
-			}
-		}
-		// ACF support
-		if( class_exists( 'acf' ) ){
-			$fields = get_fields( $post->ID );
-			if ( is_array( $fields ) && ! empty( $fields ) ) {
-				$template_data = array_merge( $template_data, $fields );
-			}
-
-		}
-		// CFS support
-		if( class_exists( 'Custom_Field_Suite' ) ){
-			$fields = CFS()->get();
-			if ( is_array( $fields ) && ! empty( $fields ) ) {
-				$template_data = array_merge( $template_data, $fields );
-			}
-
-		}
-
-		//Pods support
-		if ( class_exists( 'Pods' ) && false != ( $pods = pods( $post->post_type, $post->ID, true ) ) ) {
-			$fields = $pods->export();
-			if ( is_array( $fields ) && ! empty( $fields ) ) {
-				$template_data = array_merge( $template_data, $fields );
-			}
-
-		}
-
-
-		// include post values if in a post
-		if( !empty( $post ) ){
-			foreach( $post as $post_key=>$post_value ){
-				$template_data[$post_key] = $post_value;
-			}
-		}
-
-		return $template_data;
-
-	}
-
-	/**
-	 * Return the content with metaplate applied.
-	 *
-	 *
-	 * @return    string    rendered HTML with templates applied
-	 */
-	public function render_metaplate( $content ) {
-
-			global $post;
-				
-			$meta_stack = self::get_active_metaplates();
-			if( empty( $meta_stack ) ){
-				return $content;
-			}
-
-			$style_data = null;
-			$script_data = null;
-						
-			$template_data = self::get_custom_field_data( $post->ID );
-			//var_dump( $template_data );
-			//die;
-			$engine = new Handlebars;
-
-			$engine->addHelper( 'is', array( 'Metaplate_helpers', 'is_helper' ) );
-			$engine->addHelper( '_image', array( 'Metaplate_helpers', 'image_helper' ) );
-
-			foreach( $meta_stack as $metaplate ){
-				// apply filter to data for this metaplate
-				$template_data = apply_filters( 'metaplate_data', $template_data, $metaplate );
-				// check CSS
-				$style_data .= $engine->render( $metaplate['css']['code'], $template_data );
-				// check JS
-				$script_data .= $engine->render( $metaplate['js']['code'], $template_data );
-
-				switch ( $metaplate['placement'] ){
-					case 'prepend':
-						$content = $engine->render( $metaplate['html']['code'], $template_data ) . $content;
-						break;
-					case 'append':
-						$content .= $engine->render( $metaplate['html']['code'], $template_data );
-						break;
-					case 'replace':
-						$content = $engine->render( str_replace( '{{content}}', $content, $metaplate['html']['code']), $template_data );
-						break;
-				}
-			}
-			
-			// insert CSS
-			if( !empty( $style_data ) ){
-				$content = '<style>' . $style_data . '</style>' . $content;
-			}
-			// insert JS
-			if( !empty( $script_data ) ){
-				$content .= '<script type="text/javascript">' . $script_data . '</script>';
-			}
-
-			return $content;
-		}
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 *
-	 * @return    object    A single instance of this class.
-	 */
-	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 */
-	public function load_plugin_textdomain() {
-
-		load_plugin_textdomain( $this->plugin_slug, FALSE, basename( MTPT_PATH ) . '/languages');
-
-	}
-	
-	/**
-	 * Register and enqueue admin-specific style sheet.
-	 *
-	 *
-	 * @return    null
-	 */
-	public function enqueue_admin_stylescripts() {
-
-		$screen = get_current_screen();
-
-		
-		if( false !== strpos( $screen->base, 'metaplate' ) ){
-
-			wp_enqueue_style( 'metaplate-core-style', MTPT_URL . '/assets/css/styles.css' );
-			wp_enqueue_style( 'metaplate-baldrick-modals', MTPT_URL . '/assets/css/modals.css' );
-			wp_enqueue_script( 'metaplate-wp-baldrick', MTPT_URL . '/assets/js/wp-baldrick-full.min.js', array( 'jquery' ) , false, true );
-			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( 'wp-color-picker' );
-						
-			if( !empty( $_GET['edit'] ) ){
-				wp_enqueue_style( 'metaplate-codemirror-style', MTPT_URL . '/assets/css/codemirror.css' );
-				wp_enqueue_script( 'metaplate-codemirror-script', MTPT_URL . '/assets/js/codemirror.js', array( 'jquery' ) , false );
-			}
-
-			wp_enqueue_script( 'metaplate-core-script', MTPT_URL . '/assets/js/scripts.min.js', array( 'metaplate-wp-baldrick' ) , false );
-
-		
+		if ( is_admin() ) {
+			new calderawp\metaplate\admin\settings();
+			new calderawp\metaplate\admin\page();
 		}
 
 
 	}
-
 
 }
