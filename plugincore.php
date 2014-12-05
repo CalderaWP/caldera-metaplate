@@ -23,16 +23,18 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
+//set paths
 define('MTPT_PATH',  plugin_dir_path( __FILE__ ) );
-define('MTPT_URL',  plugin_dir_url( __FILE__ ) .'includes/caldera/metaplate' );
+define('MTPT_URL',  plugin_dir_url( __FILE__ ) . '/vendor/calderawp/metaplate-admin-assets/src/assets/'   );
 define('MTPT_VER',  '1.0.0' );
-
 
 //autoload dependencies uncomment after running composer update
 $vendor_dir = MTPT_PATH . 'vendor/autoload.php';
 if ( file_exists( $vendor_dir ) ) {
 	require_once( $vendor_dir );
+
+
+
 	// Load instance
 	add_action( 'plugins_loaded', function() {
 		require_once( MTPT_PATH . 'core-class.php' );
@@ -43,7 +45,6 @@ if ( file_exists( $vendor_dir ) ) {
 else {
 	new WP_Error( __FILE__.'no-vendor-dir', __( 'No composer vendor directory found for Caldera Metaplate.', 'metaplate' ) );
 }
-
 
 
 
