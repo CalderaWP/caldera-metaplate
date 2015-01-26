@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-git' );
 
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
@@ -44,12 +45,27 @@ module.exports = function (grunt) {
 				src: [ '**/*' ],
 				dest: '<%= pkg.name %>-<%= pkg.version %>/'
 			}
+		},
+		gittag: {
+			addtag: {
+				options: {
+					tag: '<%= pkg.version %>',
+					message: 'Version <%= pkg.version %>'
+				}
+			}
+		},
+		gitpush: {
+			push_tag: {
+				options: {
+					tags: true
+				}
+			}
 		}
 	});
 
 
 
-	grunt.registerTask( 'build', [ 'composer:update', 'clean', 'copy', 'compress'] );
+	grunt.registerTask( 'build', [ 'composer:update', 'clean', 'copy', 'compress', 'gittag', 'gitpush' ] );
 
 
 };
