@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 			}
 		},
 		clean: {
-			main: ['release/<%= pkg.version %>']
+			main: ['release/build/<%= pkg.version %>/']
 		},
 		copy: {
 			main: {
@@ -60,12 +60,23 @@ module.exports = function (grunt) {
 					tags: true
 				}
 			}
-		}
+		},
+		gitcommit: {
+			commit: {
+				options: {
+					message: 'Version <%= pkg.version %> Download',
+					noVerify: true,
+					noStatus: false,
+					allowEmpty: true
+				},
+				files: {
+					src: [ 'release/<%= pkg.name %>-<%= pkg.version %>.zip' ]
+				}
+			}
+		},
 	});
 
-
-
-	grunt.registerTask( 'build', [ 'composer:update', 'clean', 'copy', 'compress', 'gittag', 'gitpush' ] );
+	grunt.registerTask( 'build', [ 'composer:update', 'copy', 'compress', 'gittag', 'gitcommit', 'gitpush', 'clean' ] );
 
 
 };
