@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 					'!.gitignore',
 					'!.gitmodules'
 				],
-				dest: 'release/<%= pkg.version %>/'
+				dest: 'release/build/<%= pkg.version %>/'
 			}
 		},
 		compress: {
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 					archive: './release/<%= pkg.name %>-<%= pkg.version %>.zip'
 				},
 				expand: true,
-				cwd: 'release/<%= pkg.version %>/',
+				cwd: 'release/build/<%= pkg.version %>/',
 				src: [ '**/*' ],
 				dest: '<%= pkg.name %>-<%= pkg.version %>/'
 			}
@@ -49,7 +49,7 @@ module.exports = function (grunt) {
 
 
 
-	grunt.registerTask( 'build', [ 'clean', 'copy', 'compress'] );
+	grunt.registerTask( 'build', [ 'composer:update', 'clean', 'copy', 'compress'] );
 
 
 };
