@@ -2,7 +2,8 @@
 * Make sure package.json has the version number set for the version you want to release.
 * In terminal switch to this directory
 * Install node modules. `npm install` -- If OSX will need to use sudo.
-* `grunt release`
+* Update version in package.json
+* `grunt build`
 
 ### What this does:
 * Runs composer update to get latest version.

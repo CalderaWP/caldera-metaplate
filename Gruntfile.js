@@ -1,49 +1,69 @@
 module.exports = function (grunt) {
 
-	grunt.loadNpmTasks( 'grunt-composer' );
-	grunt.loadNpmTasks( 'grunt-contrib-compress' );
-	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-	grunt.loadNpmTasks( 'grunt-contrib-copy' );
-	grunt.loadNpmTasks( 'grunt-git' );
 
-	grunt.initConfig( {
-		pkg: grunt.file.readJSON( 'package.json' ),
-		composer: {
-			options: {
-				usePhp: true,
-				cwd: '',
-				composerLocation: '/usr/local/bin/composer'
+	// Project configuration.
+	grunt.initConfig({
+		pkg     : grunt.file.readJSON( 'package.json' ),
+		shell: {
+			composer: {
+				command: 'composer update'
 			}
 		},
 		clean: {
-			main: ['release/build/<%= pkg.version %>/']
+			post_build: [
+				'build/'
+			],
+			pre_compress: [
+				'build/releases'
+			]
+		},
+		run: {
+			tool: {
+				cmd: './composer'
+			}
 		},
 		copy: {
-			main: {
-				src:  [
+			build: {
+				options : {
+					mode :true
+				},
+				src: [
 					'**',
 					'!node_modules/**',
-					'!release/**',
+					'!releases',
+					'!releases/**',
 					'!.git/**',
-					'!.sass-cache/**',
 					'!Gruntfile.js',
 					'!package.json',
 					'!.gitignore',
-					'!.gitmodules'
+					'!.gitmodules',
+					'!.gitattributes',
+					'!composer.lock',
+					'!naming-conventions.txt',
+					'!how-to-grunt.md'
 				],
-				dest: 'release/build/<%= pkg.version %>/'
+				dest: 'build/'
 			}
 		},
 		compress: {
 			main: {
 				options: {
 					mode: 'zip',
-					archive: './release/<%= pkg.name %>-<%= pkg.version %>.zip'
+					archive: 'releases/<%= pkg.name %>-<%= pkg.version %>.zip'
 				},
 				expand: true,
-				cwd: 'release/build/<%= pkg.version %>/',
-				src: [ '**/*' ],
-				dest: '<%= pkg.name %>-<%= pkg.version %>/'
+				cwd: 'build/',
+				src: ['**/*']
+			}
+		},
+		gitadd: {
+			add_zip: {
+				options: {
+					force: true
+				},
+				files: {
+					src: [ 'releases/<%= pkg.name %>-<%= pkg.version %>.zip' ]
+				}
 			}
 		},
 		gittag: {
@@ -54,29 +74,62 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		gitpush: {
-			push_tag: {
-				options: {
-					tags: true
-				}
-			}
-		},
 		gitcommit: {
 			commit: {
 				options: {
-					message: 'Version <%= pkg.version %> Download',
+					message: 'Version <%= pkg.version %>',
 					noVerify: true,
 					noStatus: false,
 					allowEmpty: true
 				},
 				files: {
-					src: [ 'release/<%= pkg.name %>-<%= pkg.version %>.zip' ]
+					src: [ 'package.json', 'plugincore.php', 'releases/<%= pkg.name %>-<%= pkg.version %>.zip' ]
 				}
 			}
 		},
+		gitpush: {
+			push: {
+				options: {
+					tags: true,
+					remote: 'origin',
+					branch: 'master'
+				}
+			}
+		},
+		replace: {
+			core_file: {
+				src: [ 'caldera-custom-login.php' ],
+				overwrite: true,
+				replacements: [{
+					from: /Version:\s*(.*)/,
+					to: "Version: <%= pkg.version %>"
+				}, {
+					from: /define\(\s*'MTPT_VER',\s*'(.*)'\s*\);/,
+					to: "define( 'MTPT_VER', '<%= pkg.version %>' );"
+				}]
+			}
+		}
+
 	});
 
-	grunt.registerTask( 'build', [ 'composer:update', 'copy', 'compress', 'gittag', 'gitcommit', 'gitpush', 'clean' ] );
+	//load modules
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-git' );
+	grunt.loadNpmTasks( 'grunt-text-replace' );
+	grunt.loadNpmTasks( 'grunt-shell');
+
+
+	//register default task
+
+	//release tasks
+	grunt.registerTask( 'version_number', [ 'replace:core_file' ] );
+	grunt.registerTask( 'pre_vcs', [ 'shell:composer', 'version_number', 'copy', 'compress' ] );
+	grunt.registerTask( 'do_git', [ 'gitadd', 'gitcommit', 'gittag', 'gitpush' ] );
+	grunt.registerTask( 'just_build', [  'shell:composer', 'copy', 'compress' ] );
+
+	grunt.registerTask( 'release', [ 'pre_vcs', 'do_git', 'clean:post_build' ] );
 
 
 };
