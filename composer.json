@@ -1,6 +1,6 @@
 {
     "name": "calderawp/metaplate",
-    "description": "Create Meta Templates to display Custom Fields and Post Meta",
+    "description": "Simple templateing system for WordPress post and meta data.",
     "type": "wordpress-plugin",
     "minimum-stability" : "dev",
     "keywords": [
