@@ -16,6 +16,15 @@ If you clone this repo from GitHub, you must run `composer update` or you will b
 Also this plugin requires PHP 5.3 or later. If you're running anything less than 5.4 you really should upgrade for security and performance reasons.
 
 ### Setting Up A New Metaplate
+The Caldera Metaplate menu is located in the WordPress Appearance menu. From there you can create a new Metaplate by clicking the "Add New" button. This will open a modal where you can give your metaplate a name and slug. Then you will be taken to the metaplate editor, starting with the "Setup" tab.
+
+In the "Setup" tab, you can edit the name and slug. In addition you have the following options:
+
+* Page Types: Whether this metaplate should be used for single post view, archive view or both.
+* Placement: Whether this metaplate should be used in before, after or in place of the post content.
+* Post Types: Which post types to use this metaplate for.
+
+<img src="http://calderawp.com/public/cwp-content/uploads/2015/02/metaplate-settings.png" >
 ### Using The Tempalting System
 To output any text field in your template, use the name of the field, surrounded by two brackets. For example, if your field was called "age_of_kitten", you would use `{{age_of_kitten}}`. We can even show the post content using `{{content}}`.
 
