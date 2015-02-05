@@ -1,12 +1,10 @@
 
-<div>
-<img src="https://calderawp.com/public/cwp-content/uploads/2015/01/calderawp-logo.png" style="float:left;width30%;display:inline;"/>
 
-<span style="float:left;display:inline;">
-<h1>Caldera Metaplate: Front-end for Calera Metaplate, Handlebars.php-based custom field templating and display system.</h1>
-<h3 style="font-variant: small-caps;"><a href="https://CalderaWP.com" title="CalderaWP: Transform Your WordPress Experience">CalderaWP</a></h3>
-</span>
-</div>
+<img src="https://calderawp.com/public/cwp-content/uploads/2015/01/calderawp-logo.png" >
+
+# Caldera Metaplate: Front-end for Calera Metaplate, Handlebars.php-based custom field templating and display system.
+#### By <a href="https://CalderaWP.com" title="CalderaWP: Transform Your WordPress Experience">CalderaWP</a>
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Desertsnowman/caldera-metaplate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Desertsnowman/caldera-metaplate/?branch=master)
 
 Automatic metadata &amp; custom field templates for WordPress
