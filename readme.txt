@@ -5,6 +5,7 @@ Requires at least: 3.9
 Tested up to: 4.2-alpha
 Stable tag: 0.1.1
 License: GPLv2+
+Donate Link: https://calderawp.com
 
 Simple templateing system for WordPress post and meta data.
 
