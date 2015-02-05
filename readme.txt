@@ -1,6 +1,6 @@
-=== Caldera Forms ===
+=== Caldera Metaplate ===
 Contributors: Desertsnowman, Shelob9
-Tags: forms, formbuilder, form builder, contact form, contact, custom form, custom forms, forms creator
+Tags: custom fields, pods, advanced custom fields, custom field suite, templating, meta fields
 Requires at least: 3.9
 Tested up to: 4.2-alpha
 Stable tag: 0.1.1
