@@ -1,0 +1,5 @@
+Plugin Name -- Caldera Metaplate
+Text domain -- metaplate
+Function prefix -- caldera_metaplate
+Root namespace -- calderawp\metaplate
+Class Prefix -- n/a
