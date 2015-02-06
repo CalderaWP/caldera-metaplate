@@ -7,11 +7,13 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Desertsnowman/caldera-metaplate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Desertsnowman/caldera-metaplate/?branch=master)
 
-Automatic metadata &amp; custom field templates for WordPress
+Automatic metadata & custom field templates for WordPress
 
 
 ### Important RE: Dependencies / PHP versions
-If you clone this repo from GitHub, you must run `composer update` or you will be missing the required dependencies, which is most of the plugin. You can download a built package @todo or from WordPress.org(soon).
+If you clone this repo from GitHub, you must run `composer update` or you will be missing the required dependencies, which is most of the plugin.
+
+You can also download zipped builds for each version from: https://github.com/CalderaWP/caldera-metaplate/tree/master/releases and will be available on WordPress.org soon.
 
 Also this plugin requires PHP 5.3 or later. If you're running anything less than 5.4 you really should upgrade for security and performance reasons.
 
