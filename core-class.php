@@ -37,6 +37,8 @@ class Metaplate {
 		$render = new calderawp\metaplate\core\render();
 		// add filter.
 		add_filter( 'the_content', array( $render, 'render_metaplate' ), 9 );
+		// shortcode
+		add_shortcode( 'caldera_metaplate', 'caldera_metaplate_shortcode' );
 
 		if ( is_admin() ) {
 			new calderawp\metaplate\admin\settings();
