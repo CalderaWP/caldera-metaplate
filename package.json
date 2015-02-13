@@ -1,7 +1,7 @@
 {
   "name": "caldera-metaplate",
-  "version": "0.2.0",
-  "description": "A better, more customizable WordPress login experience.",
+  "version": "0.3.0-b1",
+  "description": "WordPress custom field templating.",
   "repository": {
     "type": "git",
     "url": "https://github.com/CalderaWP/caldera-metaplate"
