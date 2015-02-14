@@ -53,7 +53,10 @@ module.exports = function (grunt) {
 				},
 				expand: true,
 				cwd: 'build/',
-				src: ['**/*']
+				src: [
+					'**/*',
+					'!build/*'
+				]
 			}
 		},
 		gitadd: {
