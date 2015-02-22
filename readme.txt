@@ -16,7 +16,9 @@ Caldera Metaplate, by [CalderaWP](https://CalderWP.com) gives you a simple, hand
 
 For more information on how to use this plugin, see: [https://calderawp.com/free-plugin/caldera-metaplate/](https://calderawp.com/free-plugin/caldera-metaplate/)
 
-Works with:
+https://www.youtube.com/playlist?list=PLgeaHmX3MoiuxxCdHFbTFxlXlrlegBxCR
+
+=== Works With ===
 
 * Meta fields added by Advanced Custom Fields
 
