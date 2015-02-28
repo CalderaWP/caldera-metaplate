@@ -36,7 +36,7 @@ class Metaplate {
 		//render output
 		$render = new calderawp\metaplate\core\render();
 		// add filter.
-		add_filter( 'the_content', array( $render, 'render_metaplate' ), 10.1 );
+		add_filter( 'the_content', array( $render, 'render_metaplate' ), 10.5 );
 		// shortcode
 		add_shortcode( 'caldera_metaplate', 'caldera_metaplate_shortcode' );
 
