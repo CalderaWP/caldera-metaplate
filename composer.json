@@ -22,7 +22,6 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "xamin/handlebars.php"      : "dev-master",
         "calderawp/metaplate-core"  : "dev-master",
         "calderawp/metaplate-admin": "dev-master",
         "calderawp/wp-handlebars-helpers"         :"dev-master"        
