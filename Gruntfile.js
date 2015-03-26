@@ -100,8 +100,17 @@ module.exports = function (grunt) {
 			}
 		},
 		replace: {
+            readme_txt: {
+                src: [ 'readme.txt' ],
+                overwrite: true,
+                replacements: [{
+                    from: /Stable tag: (.*)/,
+                    to: "Stable tag: <%= pkg.version %>"
+                }]
+
+            },
 			core_file: {
-				src: [ 'caldera-custom-login.php' ],
+				src: [ 'plugincore.php' ],
 				overwrite: true,
 				replacements: [{
 					from: /Version:\s*(.*)/,
@@ -127,7 +136,7 @@ module.exports = function (grunt) {
 	//register default task
 
 	//release tasks
-	grunt.registerTask( 'version_number', [ 'replace:core_file' ] );
+	grunt.registerTask( 'version_number', [ 'replace:core_file', 'replace:readme' ] );
 	grunt.registerTask( 'pre_vcs', [ 'shell:composer', 'version_number', 'copy', 'compress' ] );
 	grunt.registerTask( 'do_git', [ 'gitadd', 'gitcommit', 'gittag', 'gitpush' ] );
 	grunt.registerTask( 'just_build', [  'shell:composer', 'copy', 'compress' ] );
