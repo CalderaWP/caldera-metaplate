@@ -3,7 +3,7 @@ Contributors: Desertsnowman, Shelob9
 Tags: custom fields, pods, advanced custom fields, custom field suite, templating, meta fields
 Requires at least: 3.9
 Tested up to: 4.2-alpha
-Stable tag: 0.1.1
+Stable tag: 0.3.1
 License: GPLv2+
 Donate Link: https://calderawp.com
 
@@ -12,7 +12,7 @@ Caldera Metaplate: WordPress Templating Tool For Custom Fields
 == Description ==
 <strong>Integrate Your Custom Fields With Any Theme Without Leaving The WordPress Admin!</strong>
 
-Caldera Metaplate, by [CalderaWP](https://CalderWP.com) gives you a simple, handlebars.php-based, template editor for WordPress posts, including custom post types. Provides an easy way to show your custom field values with almost any theme.
+Caldera Metaplate, by [CalderaWP](https://CalderaWP.com) gives you a simple, handlebars.php-based, template editor for WordPress posts, including custom post types. Provides an easy way to show your custom field values with almost any theme.
 
 For more information on how to use this plugin, see: [https://calderawp.com/free-plugin/caldera-metaplate/](https://calderawp.com/free-plugin/caldera-metaplate/)
 
