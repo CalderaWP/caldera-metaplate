@@ -100,7 +100,7 @@ module.exports = function (grunt) {
 			}
 		},
 		replace: {
-            readme_txt: {
+            readme: {
                 src: [ 'readme.txt' ],
                 overwrite: true,
                 replacements: [{
