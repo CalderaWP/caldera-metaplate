@@ -59,5 +59,19 @@ Totally.
 = 0.1.1 ( January, 2015 ) =
 Initial release to WordPress.org
 
+= 0.2.0 =
+Bug fixes
+
+= 0.3.0 =
+Bug fixes.
+ADDED: Ability to load metaplates from file system.
+ADDED: Is conditionals for boolean template tags.
+ADDED: Fixed. Shortcodes in metaplates not working when metaplate is outputted with a shortcode. #18
+
+= 0.3.1 =
+FIXED: Busted vendor dir on WPORG. #19
+UPGRADED: magic-tags package, allowing auto-generated excerpts to be used.
+
+
 == Upgrade Notice ==
 still new, so nothing to upgrade.
