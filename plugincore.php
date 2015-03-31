@@ -1,17 +1,17 @@
 <?php
 /**
  * @package   Metaplate
- * @author    David <david@digilab.co.za>
+ * @author    David Cramer <david@calderawp.com>
  * @license   GPL-2.0+
  * @link
- * @copyright 2014 David
+ * @copyright 2014-2015 David Cramer, Josh Pollock and CalderaWP LLC
  *
  * @wordpress-plugin
  * Plugin Name: Metaplate
  * Plugin URI:
  * Description: Create Meta Templates to display Custom Fields and Post Meta
  * Version: 0.3.1
- * Author:      David
+ * Author:      CalderaWP
  * Author URI:
  * Text Domain: metaplate
  * License:     GPL-2.0+
