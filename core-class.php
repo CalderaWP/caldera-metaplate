@@ -32,11 +32,9 @@ class Metaplate {
 			)
 		);
 
+		// detect metaplates then bind meta content
+		add_action( 'wp', array( $this, 'detect_content' ) );
 
-		//render output
-		$render = new calderawp\metaplate\core\render();
-		// add filter.
-		add_filter( 'the_content', array( $render, 'render_metaplate' ), 10.5 );
 		// shortcode
 		add_shortcode( 'caldera_metaplate', 'caldera_metaplate_shortcode' );
 
@@ -47,5 +45,30 @@ class Metaplate {
 
 
 	}
+
+	/**
+	 * Check posts content from wp_query and place a metaplate tag when theres no content.
+	 *
+	 */
+	public function detect_content(){
+		global $wp_query;
+		
+		$meta_stack = calderawp\metaplate\core\data::get_active_metaplates();
+
+		if( empty( $meta_stack ) ){ return; }
+
+		// add filter.
+		//render output
+		$render = new calderawp\metaplate\core\render();
+		add_filter( 'the_content', array( $render, 'render_metaplate' ), 10.5 );
+
+		foreach( $wp_query->posts as &$post ){
+			if( empty( $post->post_content ) ){
+				$post->post_content = '<!--metaplate-->';
+			}
+		}
+
+	}
+
 
 }
