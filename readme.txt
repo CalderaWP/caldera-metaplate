@@ -14,7 +14,7 @@ Caldera Metaplate: WordPress Templating Tool For Custom Fields
 
 Caldera Metaplate, by [CalderaWP](https://CalderaWP.com) gives you a simple, handlebars.php-based, template editor for WordPress posts, including custom post types. Provides an easy way to show your custom field values with almost any theme.
 
-For more information on how to use this plugin, see: [https://calderawp.com/free-plugin/caldera-metaplate/](https://calderawp.com/free-plugin/caldera-metaplate/)
+For more information on how to use this plugin, see: [https://calderawp.com/downloads/caldera-metaplate/](https://calderawp.com/downloads/caldera-metaplate/)
 
 https://www.youtube.com/playlist?list=PLgeaHmX3MoiuxxCdHFbTFxlXlrlegBxCR
 
