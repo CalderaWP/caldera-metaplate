@@ -72,6 +72,14 @@ ADDED: Fixed. Shortcodes in metaplates not working when metaplate is outputted w
 FIXED: Busted vendor dir on WPORG. #19
 UPGRADED: magic-tags package, allowing auto-generated excerpts to be used.
 
+= 0.4.0 =
+ADDED: Ability to reference taxonomies in metaplates for posts.
+FIXED: Shortcodes in metaplates loaded from files.
+FIXED: Made metaplates from files not require a post ID, which made no sense to require.
+FIXED: Issue with no saved metaplates causing an error.
+FIXED: Issue where global post was used when it was not set in some situations.
+ADDED: var_dump and sanatize helpers.
+
 
 == Upgrade Notice ==
 still new, so nothing to upgrade.
