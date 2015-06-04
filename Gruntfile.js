@@ -42,7 +42,7 @@ module.exports = function (grunt) {
 					'!naming-conventions.txt',
 					'!how-to-grunt.md'
 				],
-				dest: 'build/'
+				dest: 'build/<%= pkg.name %>/'
 			}
 		},
 		compress: {
