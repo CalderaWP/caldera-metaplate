@@ -10,7 +10,7 @@
  * Plugin Name: Metaplate
  * Plugin URI:
  * Description: Create Meta Templates to display Custom Fields and Post Meta
- * Version: 0.4.0
+ * Version: 0.4.1
  * Author:      CalderaWP
  * Author URI:
  * Text Domain: metaplate
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  * @param string
  */
-define( 'MTPT_VER', '0.4.0' );
+define( 'MTPT_VER', '0.4.1' );
 /**
  * Set paths
  *
