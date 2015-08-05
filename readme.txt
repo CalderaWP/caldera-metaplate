@@ -2,8 +2,8 @@
 Contributors: Desertsnowman, Shelob9
 Tags: custom fields, pods, advanced custom fields, custom field suite, templating, meta fields
 Requires at least: 3.9
-Tested up to: 4.2-alpha
-Stable tag: 0.3.1
+Tested up to: 4.4
+Stable tag: 0.4.1
 License: GPLv2+
 Donate Link: https://calderawp.com
 
@@ -79,6 +79,13 @@ FIXED: Made metaplates from files not require a post ID, which made no sense to 
 FIXED: Issue with no saved metaplates causing an error.
 FIXED: Issue where global post was used when it was not set in some situations.
 ADDED: var_dump and sanatize helpers.
+
+= 0.4.1 =
+ADDED: added post var to object to use the raw post object
+ADDED: added post_author var to object to use the raw user object
+ADDED: added format_date helper to format dates
+FIXED: issues where sanitize the_excerpt would hit an infinite loop.
+FIXED: saved notification
 
 
 == Upgrade Notice ==
