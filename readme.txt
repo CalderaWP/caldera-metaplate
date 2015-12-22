@@ -87,7 +87,7 @@ ADDED: added format_date helper to format dates
 FIXED: issues where sanitize the_excerpt would hit an infinite loop.
 FIXED: saved notification
 
-= 0.4.1 =
+= 0.4.2 =
 FIXED: WordPress 4.4 compatibility ( edit link now shows again )
 ADDED: updated Handelbars PHP to latest version for PHP 7 compatibility
 
